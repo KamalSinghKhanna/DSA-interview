@@ -1,17 +1,23 @@
-// curl -G https://api.editframe.com/v2/videos \
-//   -H "Authorization: Bearer { API_TOKEN }" 
+const newButton = document.createElement("button");
 
-  var url = "https://api.editframe.com/v2/videos";
+newButton.innerHTML = "click me";
 
-var xhr = new XMLHttpRequest();
-xhr.open("GET", url);
+newButton.style.backgroundColor = "blue";
+document.body.appendChild(newButton);
 
-xhr.setRequestHeader("Accept", "application/json");
+function debounce(func, delay) {
+  let timer;
 
-xhr.onreadystatechange = function () {
-   if (xhr.readyState === 4) {
-      console.log(xhr.status);
-      console.log(xhr.responseText);
-   }};
+  return () => {
+    clearTimeout(timer);
+    timer = setTimeout(func, delay);
+  };
+}
 
-xhr.send();
+const add = () => {
+  console.log("added");
+};
+
+const debouncedAdd = debounce(add, 3000);
+
+newButton.addEventListener("click", debouncedAdd);
